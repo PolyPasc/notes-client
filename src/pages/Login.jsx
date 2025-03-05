@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { Link, useNavigate } from "react-router-dom";
 import { post } from "../services/ApiEndPoint";
@@ -10,8 +10,8 @@ export default function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [value, setValue] = useState({
-    email: "aditya@gmail.com",
-    password: "12345",
+    email: "",
+    password: "",
   });
 
   const hanldeChange = (e) => {
@@ -28,7 +28,7 @@ export default function Login() {
       const response = request.data;
       if (response.success) {
         toast.success(response.message);
-        dispatch(addUser(response.user));
+        dispatch(addUser({ user: response.user, token: response.token }));
         navigate("/");
       }
       console.log(response);
